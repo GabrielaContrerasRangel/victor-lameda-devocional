@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Palabra de Hoy — Víctor Lameda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Petit+Formal+Script&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#150E0A;
+    --bg-cream:#FAF6EF;
+    --ink:#1C1610;
+    --ink-soft:#5C5346;
+    --gold:#C9963E;
+    --gold-deep:#9C6F2E;
+    --cream:#F5EFE6;
+    --line:#E4DACA;
+    --radius:20px;
+    --radius-sm:14px;
+    --radius-pill:999px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-cream);color:var(--ink);font-family:'Poppins',sans-serif;line-height:1.65;}
+  h1,h2,.display{font-family:'Cinzel',serif;letter-spacing:.02em;}
+  .script{font-family:'Petit Formal Script',cursive;font-weight:400;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  /* ---- Hero ---- */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:flex-end;
+    background:url('images/hero.jpg') center 30%/cover no-repeat;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(190deg, rgba(21,14,10,0.08) 0%, rgba(21,14,10,0.58) 55%, rgba(21,14,10,0.9) 100%);
+  }
+  .hero-content{position:relative;z-index:1;padding:0 28px 88px;max-width:640px;}
+
+  @keyframes riseIn{
+    from{opacity:0;transform:translateY(22px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .hero-kicker,.hero h1,.hero .lede,.hero-actions{
+    opacity:0;animation:riseIn .9s cubic-bezier(.2,.7,.3,1) forwards;
+  }
+  .hero-kicker{animation-delay:.15s;}
+  .hero h1{animation-delay:.35s;}
+  .hero .lede{animation-delay:.6s;}
+  .hero-actions{animation-delay:.85s;}
+
+  .hero-kicker{color:var(--gold);font-size:13px;letter-spacing:.12em;margin-bottom:18px;font-weight:600;}
+  .hero h1{color:var(--cream);font-size:46px;line-height:1.15;margin:0 0 20px;font-weight:600;}
+  .hero h1 .script{
+    display:inline-block;color:var(--gold);
+    animation:scriptPulse 3.2s ease-in-out 1.6s infinite;
+  }
+  @keyframes scriptPulse{
+    0%,100%{text-shadow:0 0 0 rgba(201,150,62,0);}
+    50%{text-shadow:0 0 18px rgba(201,150,62,.55);}
+  }
+  .hero .lede{color:var(--cream);opacity:.88;font-size:17px;max-width:460px;margin:0 0 34px;}
+  .hero .lede .script{font-size:1.5em;color:var(--gold);}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px;}
+
+  .btn{
+    display:inline-block;background:var(--gold);color:var(--bg-dark);border:none;padding:15px 32px;
+    font-family:'Poppins',sans-serif;font-weight:600;font-size:15px;letter-spacing:.01em;
+    text-decoration:none;border-radius:var(--radius-pill);transition:background .15s ease,transform .15s ease;
+  }
+  .btn:hover{background:#e0ac52;transform:translateY(-1px);}
+  .btn-outline{
+    display:inline-block;color:var(--cream);padding:14px 30px;
+    font-family:'Poppins',sans-serif;font-weight:500;font-size:15px;text-decoration:none;border-radius:var(--radius-pill);
+    background:rgba(255,255,255,0.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(245,239,230,0.35);transition:border-color .15s ease,background .15s ease;
+  }
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,255,255,0.14);}
+
+  /* ---- Quién es Víctor ---- */
+  .about{padding:96px 0;background:var(--bg-cream);}
+  .about-grid{display:grid;grid-template-columns:0.85fr 1.35fr;gap:56px;align-items:start;}
+  .about-media{
+    width:100%;border-radius:var(--radius);overflow:hidden;margin-top:24px;
+    aspect-ratio:4/5;
+  }
+  .about-media img{width:100%;height:100%;object-fit:cover;display:block;}
+  .about-eyebrow{color:var(--gold-deep);font-size:13px;letter-spacing:.1em;font-weight:600;margin-bottom:16px;}
+  .about h2{font-size:32px;margin:0 0 22px;color:var(--ink);font-weight:600;}
+  .about p{color:var(--ink-soft);font-size:16px;margin:0 0 16px;max-width:520px;}
+  .about-quote{
+    background:rgba(201,150,62,0.08);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    border:1px solid rgba(201,150,62,0.25);border-radius:var(--radius-sm);
+    padding:20px 24px;font-family:'Cinzel',serif;font-size:17px;
+    color:var(--ink);font-weight:500;line-height:1.6;
+  }
+
+  /* ---- Devotional CTA ---- */
+  .devotional-cta{background:var(--bg-dark);padding:88px 0;}
+  .dc-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:52px;align-items:center;}
+  .dc-media{width:100%;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;}
+  .dc-media img{width:100%;height:100%;object-fit:cover;display:block;}
+  .dc-inner{max-width:520px;}
+  .dc-eyebrow{color:var(--gold);font-size:13px;letter-spacing:.1em;font-weight:600;margin-bottom:16px;}
+  .devotional-cta h2{color:var(--cream);font-size:30px;margin:0 0 16px;font-weight:600;}
+  .devotional-cta p{color:var(--cream);opacity:.8;font-size:16px;margin:0 0 30px;max-width:480px;}
+  .dc-tag{
+    display:inline-block;background:rgba(201,150,62,0.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--gold);color:var(--gold);font-size:12.5px;
+    padding:6px 16px;border-radius:var(--radius-pill);margin-bottom:22px;letter-spacing:.03em;
+  }
+
+  /* ---- Support / donation ---- */
+  .support{padding:80px 0;background:var(--bg-cream);border-top:1px solid var(--line);}
+  .support-inner{max-width:640px;}
+  .support-eyebrow{color:var(--gold-deep);font-size:13px;letter-spacing:.1em;font-weight:600;margin-bottom:16px;}
+  .support h2{font-size:26px;margin:0 0 14px;color:var(--ink);font-weight:600;}
+  .support p{color:var(--ink-soft);font-size:15.5px;margin:0 0 26px;max-width:500px;}
+  .support-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;max-width:560px;}
+  .support-method{
+    background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(228,218,202,0.9);border-radius:var(--radius-sm);padding:16px 18px;font-size:13.5px;
+  }
+  .support-method b{display:block;font-size:14.5px;margin-bottom:2px;color:var(--ink);}
+  .support-method span{color:var(--ink-soft);}
+
+  /* ---- Socials ---- */
+  .socials{padding:72px 0;text-align:center;}
+  .socials-label{color:var(--ink-soft);font-size:13px;letter-spacing:.08em;margin-bottom:26px;}
+  .social-links{display:flex;justify-content:center;gap:20px;}
+  .social-links a{
+    display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--ink);
+    padding:20px 26px;border-radius:var(--radius-sm);background:rgba(201,150,62,0.06);
+    border:1px solid var(--line);transition:background .15s ease,transform .15s ease;
+  }
+  .social-links a:hover{background:rgba(201,150,62,0.12);transform:translateY(-2px);}
+  .social-links svg{width:26px;height:26px;}
+  .social-links a span{font-size:13.5px;color:var(--ink-soft);}
+
+  footer{padding:32px 0 48px;text-align:center;font-size:12.5px;color:var(--ink-soft);border-top:1px solid var(--line);}
+
+  @media (max-width:760px){
+    .hero h1{font-size:32px;}
+    .about-grid{grid-template-columns:1fr;gap:24px;}
+    .about-media{max-width:320px;margin:16px auto 0;}
+    .dc-grid{grid-template-columns:1fr;gap:32px;}
+    .dc-media{max-width:280px;margin:0 auto;}
+    .hero-content{padding-bottom:64px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-kicker">LA PALABRA DE HOY</div>
+    <h1>Una dosis de <span class="script">fe</span> para tu día</h1>
+    <p class="lede">Víctor Lameda proclama la Palabra de Dios cada día — reflexión, oración y comunidad, para encontrar la paz que solo Dios da.</p>
+    <div class="hero-actions">
+      <a href="devocional.html" class="btn">Comienza el devocional gratis</a>
+      <a href="#social" class="btn-outline">Síguenos</a>
+    </div>
+  </div>
+</section>
+
+<section class="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="about-eyebrow">QUIÉN ES VÍCTOR</div>
+      <h2>Una vida dividida entre el plano y el altar</h2>
+      <div class="about-media"><img src="images/victor.jpg" alt="Víctor Lameda"></div>
+    </div>
+    <div>
+      <p>Víctor es Ingeniero Civil, con más de 20 años de experiencia — un oficio donde aprendió, dice él, la importancia de construir con bases sólidas. Pero la obra más hermosa que reconoce en su vida es otra: el servicio a la Iglesia.</p>
+      <p>Su camino comenzó en la Parroquia Santísima Trinidad, Táchira, Venezuela, donde recibió el llamado a iniciar la formación como aspirante al Diaconado Permanente en la Diócesis de San Cristóbal, Táchira, Venezuela — un proceso que aún recorre. Ahí sirvió como lector, ministro extraordinario de la Eucaristía y acólito, coordinó las Comunidades Eclesiales de Base, colaboró con Cáritas parroquial, acompañó la catequesis de adultos y lideró la Hermandad de Emaús.</p>
+      <p>Hace un año, junto a su esposa Vanessa, sintió el llamado a "lanzar las redes" en un nuevo horizonte: la Parroquia San Andrés Apóstol de Naranjales, Táchira, Venezuela, donde hoy acompaña al Padre Miguel Duque como coordinador de liturgia, catequista de adultos y acólito encargado de la sacristía.</p>
+      <p>De ese camino nace "La Palabra de Hoy" — la forma que encontró de llevar la Buena Noticia también al entorno digital. Lo dice con una humildad que define todo el proyecto: no busca que sea su voz la que se escuche, sino la de Cristo, quien —dice— lleva el timón de esta barca.</p>
+      <p class="about-quote">"Proclamar la misericordia de Dios, custodiar la belleza de la Liturgia y acompañar a las familias para que descubran al Emmanuel —el Dios con nosotros— presente en la Eucaristía y en el hermano."</p>
+    </div>
+  </div>
+</section>
+
+<section class="devotional-cta">
+  <div class="wrap dc-grid">
+    <div class="dc-media"><img src="images/diario-producto.jpg" alt="Diario Devocional — Caminar en una Nueva Paz"></div>
+    <div class="dc-inner">
+      <div class="dc-tag">Tomo 1 · Gratis</div>
+      <div class="dc-eyebrow">CAMINAR EN UNA NUEVA PAZ</div>
+      <h2>Un recorrido de 7 días para encontrar el refugio que solo Dios da</h2>
+      <p>Un devocional interactivo, día a día, con versículo, reflexión, oración y espacio para tus propias notas. El primero de una serie de cuatro.</p>
+      <a href="devocional.html" class="btn">Empezar ahora</a>
+    </div>
+  </div>
+</section>
+
+<section class="support">
+  <div class="wrap support-inner">
+    <div class="support-eyebrow">APOYA ESTE TRABAJO</div>
+    <h2>Sostén el servicio de Víctor, sin que medie ningún producto</h2>
+    <p>Si este espacio te acompaña y quieres ayudar a que siga llegando a más personas — la producción, las transmisiones en vivo, el tiempo dedicado — cualquier aporte, grande o pequeño, se recibe con gratitud.</p>
+    <div class="support-methods">
+      <div class="support-method"><b>Zelle</b><span>Próximamente — datos al confirmar</span></div>
+      <a class="support-method" href="https://www.paypal.com/paypalme/victorlamedaperez" target="_blank" rel="noopener" style="text-decoration:none;display:block;"><b>PayPal</b><span>paypal.me/victorlamedaperez</span></a>
+      <div class="support-method"><b>Pago Móvil</b><span>Próximamente — datos al confirmar</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="socials" id="social">
+  <div class="wrap">
+    <div class="socials-label">SÍGUENOS Y OREMOS JUNTOS</div>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@victor.lameda77" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9963E" stroke-width="1.6"><path d="M16 3c.5 2.5 2 4 5 4.3V11c-1.9 0-3.6-.6-5-1.7v6.4a6 6 0 1 1-6-6v3.3a3 3 0 1 0 3 3V3h3z"/></svg>
+        <span>TikTok</span>
+      </a>
+      <a href="https://www.youtube.com/@victor.lameda77/videos" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9963E" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"/><path d="M10.5 9.5l5 2.5-5 2.5v-5z" fill="#C9963E" stroke="none"/></svg>
+        <span>YouTube</span>
+      </a>
+      <a href="https://beacons.ai/lapalabradehoy.victor" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C9963E" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+        <span>Más enlaces</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>La Palabra de Hoy — Víctor Lameda</footer>
+
+</body>
+</html>

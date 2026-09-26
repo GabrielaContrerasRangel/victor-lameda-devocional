@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caminar en una Nueva Paz — Víctor Lameda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#FAF6EF;
+    --card:#FFFFFF;
+    --ink:#1C1610;
+    --ink-soft:#5C5346;
+    --gold:#C9963E;
+    --gold-deep:#9C6F2E;
+    --olive:#9C6F2E;
+    --wine:#150E0A;
+    --line:#E4DACA;
+    --radius:20px;
+    --radius-sm:14px;
+    --radius-pill:999px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Poppins',sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.serif{font-family:'Cinzel',serif;letter-spacing:.01em;}
+  .verse-card p{font-family:'Cormorant Garamond',serif !important;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 24px;}
+
+  /* ---- Cover ---- */
+  .cover{
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(185,138,62,0.16), transparent 55%),
+      radial-gradient(ellipse at 85% 100%, rgba(110,122,82,0.14), transparent 55%),
+      var(--parchment);
+    padding:72px 0 56px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .flame{
+    width:34px;height:46px;margin:0 auto 22px;position:relative;display:block;
+  }
+  .flame svg{width:100%;height:100%;display:block;}
+  .kicker{
+    font-size:13px;letter-spacing:.04em;color:var(--gold-deep);text-align:center;margin-bottom:14px;
+  }
+  .cover h1{
+    font-size:44px;font-weight:700;text-align:center;margin:0 0 14px;line-height:1.08;color:var(--ink);
+  }
+  .cover .subtitle{
+    font-style:italic;font-size:20px;text-align:center;color:var(--ink-soft);max-width:520px;margin:0 auto 6px;
+    font-family:'Cormorant Garamond',serif;
+  }
+  .cover .byline{
+    text-align:center;font-size:14px;color:var(--ink-soft);margin-top:18px;letter-spacing:.01em;
+  }
+  .cover .byline b{color:var(--ink);font-weight:600;}
+
+  .intro-block{padding:40px 0 8px;}
+  .intro-block p{font-size:16px;color:var(--ink-soft);margin:0 0 16px;}
+  .verse-card{
+    background:rgba(255,255,255,0.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-left:3px solid var(--gold);
+    padding:20px 24px;margin:24px 0;border-radius:var(--radius-sm);
+  }
+  .verse-card p{
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--ink);margin:0 0 8px;
+  }
+  .verse-card span{font-size:13px;color:var(--gold-deep);letter-spacing:.02em;}
+
+  .tips{list-style:none;padding:0;margin:20px 0 0;}
+  .tips li{
+    font-size:15px;color:var(--ink-soft);padding:9px 0 9px 26px;position:relative;border-top:1px solid var(--line);
+  }
+  .tips li:first-child{border-top:none;}
+  .tips li::before{
+    content:"";position:absolute;left:0;top:17px;width:7px;height:7px;border-radius:50%;background:var(--olive);
+  }
+  .tips b{color:var(--ink);font-weight:600;}
+
+  /* ---- Email gate ---- */
+  .gate{
+    margin:36px 0 0;background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px;text-align:center;
+  }
+  .gate h3{margin:0 0 8px;font-size:23px;font-weight:600;}
+  .gate p{margin:0 0 18px;color:var(--ink-soft);font-size:14.5px;}
+  .gate form{display:flex;gap:10px;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+  .gate input[type=email]{
+    flex:1;min-width:220px;padding:13px 18px;border:1px solid var(--line);border-radius:var(--radius-pill);
+    font-family:'Poppins',sans-serif;font-size:15px;background:#fff;color:var(--ink);
+  }
+  .gate input[type=email]:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .btn{
+    background:var(--wine);color:#fff;border:none;padding:13px 26px;border-radius:var(--radius-pill);
+    font-family:'Poppins',sans-serif;font-size:15px;font-weight:600;cursor:pointer;letter-spacing:.01em;
+    transition:background .15s ease;
+  }
+  .btn:hover{background:#631f26;}
+  .btn{padding:13px 26px;border-radius:var(--radius-pill);}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .gate small{display:block;margin-top:12px;color:var(--ink-soft);font-size:12.5px;}
+  .gate.done{padding:20px 26px;}
+  .gate.done p{margin:0;color:var(--olive);font-weight:600;}
+
+  /* ---- App shell (hidden until unlocked) ---- */
+  #app{display:none;}
+  #app.show{display:block;}
+
+  .path{
+    position:sticky;top:0;background:var(--parchment);z-index:5;
+    border-bottom:1px solid var(--line);padding:18px 0;
+  }
+  .path-inner{display:flex;gap:8px;overflow-x:auto;padding:2px;}
+  .day-dot{
+    flex:0 0 auto;width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);
+    background:var(--card);color:var(--ink-soft);font-family:'Cormorant Garamond',serif;font-weight:700;font-size:17px;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s ease;
+  }
+  .day-dot.active{background:var(--wine);border-color:var(--wine);color:#fff;}
+  .day-dot.visited:not(.active){border-color:var(--gold);color:var(--gold-deep);}
+  .day-dot:hover:not(.active){border-color:var(--gold);}
+
+  .day-panel{padding:40px 0 20px;}
+  .day-eyebrow{font-size:13px;color:var(--gold-deep);letter-spacing:.03em;margin-bottom:6px;}
+  .day-panel h2{font-size:30px;font-weight:600;margin:0 0 22px;line-height:1.15;}
+
+  .day-media{width:100%;border-radius:var(--radius);overflow:hidden;margin:0 0 28px;aspect-ratio:16/9;}
+  .day-media img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  .day-panel .verse-card p{font-size:20px;}
+
+  .section-label{
+    font-size:13px;font-weight:600;color:var(--olive);text-transform:none;margin:30px 0 10px;
+    letter-spacing:.01em;
+  }
+  .day-panel .body-text p{font-size:15.5px;color:var(--ink-soft);margin:0 0 14px;}
+
+  .journal{
+    margin-top:36px;background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+  }
+  .journal label{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--ink);margin-bottom:12px;}
+  .journal textarea{
+    width:100%;min-height:110px;padding:14px;border:1px solid var(--line);border-radius:var(--radius-sm);
+    font-family:'Poppins',sans-serif;font-size:14.5px;color:var(--ink);resize:vertical;background:#fff;
+  }
+  .journal textarea:focus{outline:2px solid var(--gold);outline-offset:1px;}
+  .journal .save-row{display:flex;align-items:center;gap:12px;margin-top:12px;}
+  .journal .save-msg{font-size:13px;color:var(--olive);opacity:0;transition:opacity .3s ease;}
+  .journal .save-msg.show{opacity:1;}
+
+  .nav-row{display:flex;justify-content:space-between;margin-top:34px;gap:10px;}
+  .nav-btn{
+    background:transparent;border:1px solid var(--line);color:var(--ink);padding:11px 20px;border-radius:var(--radius-pill);
+    font-family:'Poppins',sans-serif;font-size:14px;cursor:pointer;
+  }
+  .nav-btn:hover{border-color:var(--gold);}
+  .nav-btn:disabled{opacity:.35;cursor:default;}
+
+  /* ---- Closing / funnel ---- */
+  .closing{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:52px 0;margin-top:20px;}
+  .closing h3{font-size:26px;margin:0 0 14px;}
+  .closing p{color:var(--ink-soft);font-size:15px;margin:0 0 14px;}
+
+  .next-step{
+    margin:28px 0;background:rgba(201,150,62,0.08);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--gold);border-radius:var(--radius);padding:26px;
+  }
+  .next-step .day-eyebrow{margin-bottom:8px;}
+  .next-step h4{font-size:22px;margin:0 0 8px;font-weight:600;}
+  .next-step p{margin:0 0 18px;}
+
+  .pay-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px;}
+  .pay-method{
+    background:rgba(255,255,255,0.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;font-size:13.5px;
+  }
+  .pay-method b{display:block;font-size:14px;margin-bottom:2px;color:var(--ink);}
+  .pay-method span{color:var(--ink-soft);}
+
+  .socials{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;}
+  .socials a{
+    color:var(--ink);text-decoration:none;font-size:14px;border-bottom:1px solid var(--gold);padding-bottom:2px;
+  }
+  .socials a:hover{color:var(--wine);}
+
+  footer{padding:26px 0 60px;text-align:center;font-size:12.5px;color:var(--ink-soft);}
+
+  @media (max-width:600px){
+    .cover{padding:50px 0 40px;}
+    .cover h1{font-size:32px;}
+    .cover .subtitle{font-size:17px;}
+    .day-panel h2{font-size:25px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="wrap">
+    <a href="index.html" style="display:inline-block;margin-bottom:24px;font-size:13px;color:var(--gold-deep);text-decoration:none;letter-spacing:.05em;">← La Palabra de Hoy</a>
+    <div class="flame">
+      <svg viewBox="0 0 34 46"><path d="M17 0C17 0 6 14 6 26C6 35 10.6 42 17 42C23.4 42 28 35 28 26C28 20 24 15 22 11C22 15 20 17.5 18 17.5C15.5 17.5 14.5 14.5 14.5 11.5C14.5 8 16 4 17 0Z" fill="#C9963E" opacity="0.9"/><path d="M17 12C17 12 12 20 12 27C12 32 14.2 36 17 36C19.8 36 22 32 22 27C22 23.5 20 20.5 19 18C19 20.5 18 22 17 22C15.8 22 15 20.3 15 18.5C15 16 16 14 17 12Z" fill="#150E0A" opacity="0.85"/></svg>
+    </div>
+    <div class="kicker">LA PALABRA DE HOY</div>
+    <h1>Caminar en una Nueva Paz</h1>
+    <p class="subtitle">Un recorrido de 7 días para encontrar el refugio y el sosiego que solo Dios nos da.</p>
+    <p class="byline">Por <b>Víctor Lameda</b></p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="intro-block">
+    <h3 class="serif" style="font-size:24px;font-weight:600;margin:0 0 4px;">Un Refugio de Paz en Medio de la Tormenta</h3>
+    <p>Querido amigo y hermano en la fe:</p>
+    <p>Bienvenido a este recorrido de 7 días diseñado para fortalecer tu corazón, renovar tu mente y devolverte la paz que a veces el ruido del mundo, la ansiedad y las preocupaciones parecen arrebatarte.</p>
+    <p>A lo largo de esta semana, meditaremos en la Palabra de Dios, acudiremos al amparo maternal de la Santísima Virgen María y realizaremos acciones sencillas pero profundas para soltar el control y confiar en que Dios sostiene tu historia.</p>
+    <p>Este material está pensado para acompañarte en tus momentos de oración personal y ser el hilo conductor de nuestras transmisiones nocturnas en vivo en TikTok. Te animo a guardar un espacio de silencio cada día y a escribir tus intenciones para orar juntos.</p>
+
+    <div class="verse-card">
+      <p>"Les dejo la paz, les doy mi paz. La paz que yo les doy no es como la que da el mundo. Que no haya en ustedes angustia ni miedo."</p>
+      <span>Juan 14, 27 — Biblia Latinoamericana</span>
+    </div>
+
+    <h3 class="serif" style="font-size:22px;font-weight:600;margin:32px 0 4px;">¿Cómo aprovechar al máximo este devocional?</h3>
+    <ul class="tips">
+      <li><b>Busca un momento constante:</b> separa de 10 a 15 minutos en la mañana o en la noche en un lugar tranquilo.</li>
+      <li><b>Lee con calma:</b> medita en el versículo del día antes de pasar a la reflexión.</li>
+      <li><b>Súmate al Live de TikTok:</b> acompáñanos en las transmisiones nocturnas para compartir impresiones y presentar tus intenciones comunitarias.</li>
+      <li><b>Pasa a la acción:</b> realiza el ejercicio diario sugerido al final de cada jornada y anota tus reflexiones aquí mismo.</li>
+    </ul>
+    <p style="font-size:12.5px;margin-top:20px;">Las citas bíblicas utilizadas en este devocional están tomadas de la Biblia Latinoamericana.</p>
+  </div>
+
+  <div class="gate" id="gate">
+    <h3 class="serif">Comienza tu recorrido</h3>
+    <p>Deja tu correo para desbloquear los 7 días y guardar tus notas de oración.</p>
+    <form id="gateForm">
+      <input type="email" id="emailInput" placeholder="tu@correo.com" required>
+      <button type="submit" class="btn">Entrar al devocional</button>
+    </form>
+    <small>Sin spam. Solo lo necesario para acompañarte en este camino.</small>
+  </div>
+</div>
+
+<div id="app">
+  <div class="path">
+    <div class="wrap path-inner" id="pathInner"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="day-panel" id="dayPanel"></div>
+  </div>
+
+  <div class="closing">
+    <div class="wrap">
+      <h3 class="serif">Consagración y Continuidad</h3>
+      <p>Gracias de corazón por permitirnos entrar en tu vida y caminar juntos durante estos siete días. Haber compartido esta experiencia de intimidad con Dios, noche a noche, ha sido un regalo maravilloso que nos recuerda que el Señor nos ha regalado Su compañía y la intercesión de la Virgen María para transformarnos por dentro.</p>
+      <p>A lo largo de este camino hemos aprendido a reconocer nuestra dependencia de Él: a perdonarnos, a soltar lo que nos pesa y a dar gracias aun en medio de la dificultad, pues es allí donde Dios perfecciona una fe firme, como la de la mujer cananea.</p>
+      <p>Esta paz no es efímera como la del mundo; es una gracia eterna que penetra el corazón, haciéndonos permeables a Su palabra y convirtiéndonos en un templo vivo que descansa en el Salvador. Es refugio, es victoria sobre el pecado y la promesa de que Él hace nuevas todas las cosas. Que esta experiencia no se quede solo en ti, sino que el Señor te convierta en un puente para edificar la vida de otros.</p>
+
+      <h3 class="serif" style="margin-top:32px;">El Camino Continúa</h3>
+      <p>Por eso, este camino de fe no termina aquí. La paz de Dios es un estilo de vida que se cultiva paso a paso bajo el mapa de ruta que Dios nos da.</p>
+
+      <div class="next-step">
+        <div class="day-eyebrow">PRÓXIMO PASO</div>
+        <h4 class="serif">Capítulo 2: Sostener la quietud en medio del ruido</h4>
+        <p>Te invito a seguir caminando juntos y a aprender a blindar el corazón frente al afán exterior. Reserva tu acceso y te avisamos apenas esté disponible.</p>
+        <div class="pay-methods">
+          <div class="pay-method"><b>Zelle</b><span>Próximamente — datos al confirmar</span></div>
+          <a class="pay-method" href="https://www.paypal.com/paypalme/victorlamedaperez" target="_blank" rel="noopener" style="text-decoration:none;display:block;"><b>PayPal</b><span>paypal.me/victorlamedaperez</span></a>
+          <div class="pay-method"><b>Pago Móvil</b><span>Próximamente — datos al confirmar</span></div>
+        </div>
+        <button class="btn" id="reserveBtn">Quiero reservar mi acceso</button>
+        <div class="save-msg" id="reserveMsg" style="margin-top:10px;">¡Listo! Te avisaremos por correo.</div>
+      </div>
+
+      <p>Que María Santísima siga intercediendo por tu familia y por ti, para que camines siempre abrazado por Su paz. ¡Amén!</p>
+
+      <div class="socials">
+        <a href="https://www.tiktok.com/@victor.lameda77" target="_blank" rel="noopener">TikTok</a>
+        <a href="https://www.youtube.com/@victor.lameda77/videos" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://beacons.ai/lapalabradehoy.victor" target="_blank" rel="noopener">Beacons</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>La Palabra de Hoy — Víctor Lameda</footer>
+
+<script>
+const DAYS = [
+  {
+    n:1, title:"Reconocer la Tormenta y Entregar el Control",
+    verse:"Vengan a mí los que van cansados, llevando pesadas cargas, y yo los aliviaré.",
+    ref:"Mateo 11, 28",
+    reflection:[
+      "A veces, nos sentimos agobiados no por la tormenta en sí, sino porque intentamos navegarla con nuestras propias fuerzas, creyéndonos capaces de llevar el timón de nuestra vida sin consultar al Capitán. Esta carga pesada es, a menudo, el resultado de no permitir que Dios actúe en nuestra vida, pues nos dejamos llevar por el orgullo de pensar que podemos con todo.",
+      "Precisamente ante esta realidad de nuestra fragilidad humana, el Señor no nos promete que, al acudir a Él, la tormenta se disipará de forma inmediata o que la vida quedará libre de dificultades. Por el contrario, lo que Él nos ofrece es algo mucho más profundo: descanso en medio del oleaje. Cuando reconocemos nuestra total dependencia de Él y decidimos entregarle el timón de nuestra barca que es nuestro propio corazón, ocurre un milagro: su autoridad calma el viento interior y nuestra tormenta comienza a serenarse bajo el amparo de su paz.",
+      "Confiar plenamente en el Señor no es un acto de debilidad, sino el acto de fe más valiente que puedes realizar; significa reconocer que hay una fuerza infinitamente superior sosteniendo tu vida. Hoy Dios no te pide que cargues con todo ese peso solo; Él te invita a depositarlo en sus manos para que pueda convertirse en ese refugio seguro, haciendo tu carga ligera y devolviéndote la paz que tanto necesitas."
+    ],
+    oracion:"Señor Jesús, hoy reconozco que estoy cansado de intentar sostenerlo todo por mis propias fuerzas. Entrego en tus manos mis temores y la incertidumbre de mi mañana. Mamita María, tú que supiste decir \"sí\" en medio de la incertidumbre y guardaste todas las cosas en tu corazón, intercede por mí hoy. Enséñame a no temerle a la tormenta, a soltar el control de lo que no puedo cambiar y a confiar con los ojos cerrados en la voluntad de tu Hijo Jesús. Amén.",
+    accion:"Abre tu Biblia en Mateo 11, 28 y lee el versículo en voz alta. Luego, escribe cuál es esa preocupación principal que hoy no te deja dormir. Al terminar de escribirla, di en voz alta: \"Señor, esto lo pongo en tus manos, porque confío en tu autoridad sobre mi vida\"."
+  },
+  {
+    n:2, title:"El Poder del Silencio y la Oración", image:"images/dia-02-pozo.jpg",
+    verse:"Paren y reconozcan que soy Dios...",
+    ref:"Salmo 46, 11",
+    reflection:[
+      "En medio del ruido del mundo, de los asedios diarios que amenazan nuestra tranquilidad y de la prisa que nos abruma, el alma humana se cansa. A menudo intentamos defendernos con nuestras propias fuerzas, sin darnos cuenta de que la verdadera paz no se encuentra en el control obsesivo, sino en un acto radical que la Palabra nos enseña hoy: \"Paren\".",
+      "El salmista nos dibuja un escenario donde la tierra se sacude y los montes caen al fondo del mar; un reflejo de nuestras propias tormentas e incertidumbres. Sin embargo, en medio de ese caos, Dios nos invita a detenernos. El silencio y la oración no son la ausencia de problemas, sino la presencia de Dios actuando como nuestro refugio secreto y seguro. Cuando decidimos aquietar nuestros pensamientos y apagar las distracciones, el mundo exterior puede seguir rugiendo, pero en nuestro interior se instala la certeza absoluta de su soberanía. Detenerse a orar es reconocer que Él es Dios por encima de todo.",
+      "A veces, en ese silencio, podemos sentir que Dios no responde de inmediato, como le ocurrió a la mujer cananea cuando clamaba y parecía que el Maestro guardaba silencio. Pero ese silencio no era rechazo; era el fuego donde Dios forjaba en ella una fe firme, capaz de atravesar fronteras y tocar el corazón del Señor. Cuando sientas que el silencio de Dios envuelve tu tormenta, no te detengas: comprende que es allí, en la perseverancia de la oración callada pero firme, donde Él está forjando el milagro que tu vida necesita."
+    ],
+    oracion:"Señor Jesús, ayúdame a \"parar\" en medio del torbellino de mis preocupaciones, a sostener mi fe aun cuando parezca que guardas silencio, y a confiar ciegamente en tu misericordia. Mamita María, tú que guardabas todas las cosas meditándolas en el silencio de tu corazón y supiste esperar con paciencia los tiempos de Dios, enséñame a aquietar mi alma. Dame la gracia de perseverar en la oración y de encontrar en el silencio el refugio seguro que tanto necesito. Amén.",
+    accion:"Busca un lugar tranquilo, apaga las notificaciones de tu teléfono por 10 minutos y dedica ese tiempo a \"parar\", guardando silencio absoluto con Dios y meditando en el Salmo 46, 11 y en la fe perseverante de la mujer cananea. Luego escribe cómo viviste este momento y qué sentiste."
+  },
+  {
+    n:3, title:"Anclados en la Promesa (La Palabra como Refugio)", image:"images/dia-03-arco.jpg",
+    verse:"No temas, pues yo estoy contigo. No mires con desconfianza, pues yo soy tu Dios. Yo te he dado fuerza, he sido tu auxilio y con mi diestra victoriosa te he sostenido.",
+    ref:"Isaías 41, 10",
+    reflection:[
+      "Cuando las circunstancias nos superan y la incertidumbre intenta robarnos la paz, la mente humana tiende a magnificar el problema hasta hacerlo parecer más grande que Dios. Sin embargo, en medio de la tormenta, el Señor sigue siendo el mismo: nuestro proveedor fiel. Desde su Palabra nos regala su amor como una herencia maravillosa para encontrar las respuestas que los ojos humanos no pueden ver.",
+      "Si miramos con la perspectiva divina que nos regala la fe, entenderemos que la tormenta podrá ser grande, pero nuestro Dios es infinitamente mayor. Ciertamente, muchas veces no entendemos sus tiempos ni sus métodos, pero sí tenemos la absoluta certeza de que Él a ningún hijo suyo le ha fallado.",
+      "Piensa por un momento en Elías o en aquellos momentos de sequía donde no hay salida visible: solo silencio. Pero es precisamente allí, cuando todo parecía perdido, donde Dios desplegó su promesa. El Señor no solo conoce nuestra necesidad y nuestra angustia; Él ya está preparando lo que se abrirá en el momento exacto. No pongamos nuestra confianza en un trabajo, en una empresa o en una persona, porque todo eso es efímero; coloquemos nuestra mirada únicamente en Dios, que nunca cambia, que es el mismo de ayer, de hoy y de siempre. Sigue haciendo tu parte, trabajando con excelencia y administrando lo que el Señor te da, pero descansa tranquilo: la providencia divina siempre llega para llevarnos a puerto seguro."
+    ],
+    oracion:"Señor Jesús, hoy decido anclar mi corazón en tus promesas y dejar de lado la desconfianza que nubla mi fe. Cuando el arroyo de mis fuerzas o de mis recursos parezca secarse, recuérdame que tú eres mi sustento. Mamita María, tú que guardaste cada palabra de Dios en tu interior y confiaste ciegamente en su providencia incluso en los momentos más oscuros, intercede por mí. Enséñame a sostener mi vida en la seguridad de su Palabra. Amén.",
+    accion:"Abre tu Biblia en Isaías 41, 10 y lee el versículo tres veces con calma. Luego escribe cuál es ese \"arroyo\" que hoy parece secarse en tu vida, deposítalo con fe en las manos de Dios y recuérdate a ti mismo que Él es tu proveedor fiel."
+  },
+  {
+    n:4, title:"Soltar la Carga, el Perdón y la Liberación", image:"images/dia-04-perdon.jpg",
+    verse:"Sopórtense y perdónense unos a otros, si uno tiene motivo de queja contra otro. Como el Señor los perdonó, a su vez hagan ustedes lo mismo.",
+    ref:"Colosenses 3, 13",
+    reflection:[
+      "A veces cargamos con un peso invisible que no proviene de las deudas, ni del trabajo, ni de las tormentas externas, sino de las heridas del pasado, de los rencores que guardamos en silencio y de las culpas que nosotros mismos nos generamos. Soltar la carga significa perdonarnos y, al perdonarnos, encontrar la verdadera liberación. Esto no es otra cosa que ponernos ese vestido nuevo que el Señor quiere regalarnos: significa despojarnos del hombre viejo, de sus ataduras, vicios, miedos, ofensas no sanadas y culpas.",
+      "Perdonarnos y perdonar a los demás es revestirnos de ese hombre nuevo que el Señor quiere que seamos, alcanzando una paz profunda aun sabiendo que seguiremos teniendo dificultades y problemas. Cuando nos revestimos de la gracia del Señor y soltamos en Él todo lo que nos pesa, comprendemos la cruz: no una cruz de muerte, sino de vida. Es esa misma cruz que el Señor nos invita a cargar, pero no solos, sino ayudados por Él para hacernos la carga mucho más liviana, sabiendo que Él está en medio de nosotros.",
+      "Dios nos ha elegido porque somos sus hijos, y ha tenido una compasión tierna por cada uno de nosotros. El Señor nos regala ese sacramento maravilloso de la confesión, donde, si acudimos con un corazón humilde, sencillo y sincero, Él nos da la posibilidad de estrenar ese nuevo vestido de gracia y misericordia. Y por encima de esa vestidura, Dios nos coloca el mayor de los tesoros: el amor, que es el cinturón que lo ata y lo hace todo perfecto. Así, la paz de Cristo reinará en nuestros corazones."
+    ],
+    oracion:"Señor Jesús, hoy reconozco que he cargado con ofensas, culpas y resentimientos que me alejan de tu paz. Te pido la gracia de perdonar de corazón, de despojarme del hombre viejo y de revestirme con tu gracia, ajustando a mi vida el cinturón del amor. Gracias por el regalo de tu misericordia y de la confesión. Mamita María, tú que guardaste todo en tu corazón sin albergar amargura y conoces el poder redentor de la cruz de tu Hijo, intercede por mí. Enséñame a soltar el peso del pasado y a caminar con el alma libre y ligera. Amén.",
+    accion:"Abre tu Biblia en Colosenses 3, 13 (y continúa leyendo hasta el versículo 15) para meditar en el amor y la paz de Cristo. Luego escribe aquello que necesitas perdonar o confesar hoy ante el Señor, abriendo tu corazón para recibir su vestido nuevo y permitir que su paz reine en ti."
+  },
+  {
+    n:5, title:"La Gratitud en Medio de la Dificultad",
+    verse:"Y den gracias a Dios en toda ocasión. Esta es, por voluntad de Dios, su vocación de cristianos.",
+    ref:"1 Tesalonicenses 5, 18",
+    reflection:[
+      "Cuando atravesamos momentos duros, pruebas financieras, puertas cerradas o incertidumbre, lo más humano que nos sale es la queja o el desánimo. Sin embargo, el apóstol Pablo nos recuerda que dar gracias a Dios en toda ocasión no es opcional: es nuestra vocación de cristianos. Dar gracias en medio de la dificultad no significa aplaudir el problema o fingir que el dolor no existe; es un acto profundo de fe. Es reconocer que Dios sigue en su trono y que Su amor es más grande que nuestra tormenta.",
+      "Esta actitud de gratitud está profundamente conectada con nuestra verdadera identidad. A veces, el pecado, el miedo y las heridas nos hacen sentir que pertenecemos a la noche, a la oscuridad y a las tinieblas. Pensamos que la dificultad es un castigo de Dios; pero Dios no castiga. Dios nos ama, y porque nos ama nos cuida, nos protege, nos libera, nos perdona, nos abraza y viene a hacer nuevas todas las cosas en nuestra vida.",
+      "Es muy fácil decir gracias cuando todo va bien y sale como lo planeamos; pero la verdadera prueba de nuestra fe llega en medio de la dificultad. Es allí donde debemos recordar que no dejamos de ser hijos de Dios. El Señor permanece en nosotros, revistiéndonos de fe y amor como un escudo, y haciendo nuestro el casco de la esperanza para que los pensamientos de negatividad y hundimiento sean disipados. Dejemos que el Señor actúe y sepamos agradecer tanto nuestras alegrías como nuestras tristezas, pues es allí, en medio de la prueba, donde Dios transforma por completo nuestros ojos para ver la vida con Su amor y Su divinidad."
+    ],
+    oracion:"Señor Jesús, hoy reconozco que muchas veces la terquedad, el miedo y la angustia me han hecho dudar de tu amor, viéndolo como castigo en lugar de refugio. Dame la gracia de revestirme con el escudo de la fe y el casco de la esperanza, asumiendo mi vocación de cristiano dando gracias en toda ocasión, tanto en la alegría como en la tristeza. Mamita María, tú que guardaste todo en tu corazón y confiaste en los planes perfectos de Dios aun bajo la cruz, intercede por mí. Enséñame a ver la vida con los ojos de Jesús y a vivir con un corazón eternamente agradecido. Amén.",
+    accion:"Abre tu Biblia en 1 Tesalonicenses 5, 18 y lee el versículo con calma. Luego escribe aquello que hoy te genera temor, entrégaselo a la luz del Señor y escribe motivos concretos para dar gracias, abrazando con fe la historia perfecta que Dios está escribiendo en ti."
+  },
+  {
+    n:6, title:"Refugio y fe: La intercesión que sostiene",
+    verse:"Antes bien, en toda ocasión presenten sus peticiones a Dios y junten la acción de gracias a la súplica. Y la paz de Dios, que es mayor de lo que se puede imaginar, les guardará sus corazones y sus pensamientos en Cristo.",
+    ref:"Filipenses 4, 6-7",
+    reflection:[
+      "La fe y el refugio son la herencia que el Señor nos regala a ti y a mí. Dios es siempre nuestra roca fuerte, ese refugio seguro al que podemos acudir en cualquier momento. Pero para acercarnos a Él debemos hacerlo con una fe firme, sincera y pura, imitando la actitud de aquella mujer cananea: una mujer sin méritos, extranjera, que con total docilidad y valentía lo dio todo por la sanación de su hija.",
+      "El Señor nunca dejará de ser nuestro auxilio. Él siempre tiene preparado un encuentro de intimidad con cada uno de nosotros, siempre que acudamos con sencillez, respeto, valentía y perseverancia. En medio de los momentos de dificultad, cuando el ruido del mundo quiere robarnos la paz, debemos encontrar ese refugio único en Dios, y no buscar los falsos refugios que ofrece el mundo —como distracciones que solo adormecen y alejan del alma—.",
+      "Acudir al Señor nos permite apagar el ruido y escuchar Su voz, recordándonos que debemos luchar por las cosas del cielo: por el amor, la verdadera alegría y la paz que Él nos regala. Cuando llevamos todo en oración uniendo la súplica a la acción de gracias, la paz de Dios se convierte en esa muralla inquebrantable que guarda nuestros corazones y nuestros pensamientos en Cristo Jesús."
+    ],
+    oracion:"Señor Jesús, hoy decido acudir a ti como mi único y verdadero refugio. Aparta de mi vida cualquier falso consuelo del mundo y dame la fe perseverante de la mujer cananea. Derrama esa paz tuya que supera todo lo que puedo imaginar, manteniéndome en esa fe firme capaz de guardar mis pensamientos y mi corazón en ti. Y a ti, Mamita María —tú que intercediste con fe firme y llevaste siempre a los demás hacia el único Refugio que es tu Hijo—, te pido que intercedas por mí. Enséñame a buscar las cosas del cielo y a descansar en tu protección maternal. Amén.",
+    accion:"Abre tu Biblia en Filipenses 4 (lee del versículo 4 al 7) y medita en la paz que el Señor te ofrece. Luego escribe esa petición que hoy pesa en tu corazón, renuncia a cualquier falso refugio, súmale una acción de gracias y entrégaselo al Señor con la certeza de que Él es tu roca firme."
+  },
+  {
+    n:7, title:"Caminar en una Nueva Paz: Todo lo Hace Nuevo",
+    verse:"Y el que estaba sentado en el trono dijo: 'Ahora todo lo hago nuevo'. Luego me dijo: 'Escribe que estas palabras son ciertas y verdaderas'.",
+    ref:"Apocalipsis 21, 5",
+    reflection:[
+      "Hemos recorrido un camino profundo de reflexión, reconociendo nuestras cargas, soltando el control, perdonando, aprendiendo a dar gracias en medio de la dificultad y buscando refugio en el único lugar seguro que es el Señor. Para este último día, el Apocalipsis nos regala una promesa que estremece el alma y nos llena de una esperanza inquebrantable: \"Ahora todo lo hago nuevo\". Caminar en una nueva paz es entender que la paz que el Señor nos da no es como la que ofrece el mundo, sino una paz capaz de hacer nuevas todas las cosas.",
+      "En este capítulo, el Señor nos habla de un cielo nuevo y una tierra nueva, permitiéndonos vivir Su paz en medio de las dificultades y sabiendo que hay una nueva oportunidad cada vez que nos entregamos a Él por completo. El Señor subió al madero y murió en la cruz por amor a cada uno de nosotros, entregándose sin exigir nada a cambio. Dios ha hecho nuevas todas las cosas. Nos ha regalado una herencia que vence todo mal, todo miedo y todo temor de manera totalmente gratuita, porque Él es nuestro Alfa y Omega, nuestro principio y fin. Es ese manantial de agua fresca que nos da vida en abundancia, que nos lava, nos purifica y nos llena de Su paz al recordarnos: \"Yo seré su Dios y ustedes serán mis hijos\". Que la paz del Señor sea aquello que Él ha colocado firmemente en tu corazón a lo largo de estos siete días. Y que, a ejemplo de María Santísima, podamos nosotros también entregarle hoy el timón de nuestra vida al Señor. ¡Dios te bendiga!"
+    ],
+    oracion:"Señor Jesús, hoy me postro ante tu trono y te doy gracias porque creo en tu promesa: tú haces nuevas todas las cosas. Gracias por ser mi Alfa y Omega, mi manantial de agua viva. Hoy te entrego el timón de mi vida y acepto con alegría ser tu hijo. Mamita María, tú que con tu \"sí\" generoso abriste la puerta al Salvador, intercede por mí para que camine siempre de tu mano hacia las manos de Jesús. Custodia mi corazón y guíame a vivir en tu paz y en tu amor. Amén.",
+    accion:"Abre tu Biblia en Apocalipsis 21 (lee desde el versículo 1 al 7) y medita en la hermosa promesa de la morada de Dios con nosotros. Luego escribe cómo ha transformado el Señor tu corazón a lo largo de estos siete días, entregándole tus lágrimas y abrazando la paz de saber que todo es nuevo en Él."
+  }
+];
+
+const SUPABASE_URL = 'https://lcwlokexitqopontqttl.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxjd2xva2V4aXRxb3BvbnRxdHRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg4NjY1NjEsImV4cCI6MjEwNDQ0MjU2MX0.aDqtVrlGLkKzBVIPB2wYLg0pBCA78QrXIp1bM0m-IRE';
+
+async function saveLeadToSupabase(email, tomo){
+  try{
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ email, tomo })
+    });
+    if(res.ok || res.status === 409){
+      return { ok: true };
+    }
+    const text = await res.text();
+    return { ok: false, status: res.status, detail: text };
+  }catch(e){
+    return { ok: false, status: 'network', detail: String(e) };
+  }
+}
+
+let currentDay = 1;
+let userEmail = null;
+
+function safeStorage(){
+  return (typeof window !== 'undefined' && window.storage) ? window.storage : null;
+}
+
+async function saveJournal(day, text){
+  const store = safeStorage();
+  if(!store || !userEmail) return false;
+  try{
+    await store.set('journal:' + userEmail + ':' + day, text, false);
+    return true;
+  }catch(e){ console.error('storage error', e); return false; }
+}
+
+async function loadJournal(day){
+  const store = safeStorage();
+  if(!store || !userEmail) return '';
+  try{
+    const res = await store.get('journal:' + userEmail + ':' + day, false);
+    return res ? res.value : '';
+  }catch(e){ return ''; }
+}
+
+async function loadVisited(){
+  const store = safeStorage();
+  if(!store || !userEmail) return [1];
+  try{
+    const res = await store.get('visited:' + userEmail, false);
+    return res ? JSON.parse(res.value) : [1];
+  }catch(e){ return [1]; }
+}
+
+async function saveVisited(list){
+  const store = safeStorage();
+  if(!store || !userEmail) return;
+  try{ await store.set('visited:' + userEmail, JSON.stringify(list), false); }catch(e){}
+}
+
+let visitedDays = [1];
+
+function renderPath(){
+  const el = document.getElementById('pathInner');
+  el.innerHTML = '';
+  DAYS.forEach(d=>{
+    const dot = document.createElement('button');
+    dot.className = 'day-dot' + (d.n===currentDay ? ' active' : '') + (visitedDays.includes(d.n) ? ' visited' : '');
+    dot.textContent = d.n;
+    dot.setAttribute('aria-label', 'Día ' + d.n);
+    dot.onclick = ()=> goToDay(d.n);
+    el.appendChild(dot);
+  });
+}
+
+async function goToDay(n){
+  currentDay = n;
+  if(!visitedDays.includes(n)){ visitedDays.push(n); await saveVisited(visitedDays); }
+  renderPath();
+  await renderDay(n);
+  document.getElementById('dayPanel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+async function renderDay(n){
+  const d = DAYS.find(x=>x.n===n);
+  const panel = document.getElementById('dayPanel');
+  const saved = await loadJournal(n);
+  panel.innerHTML = `
+    <div class="day-eyebrow">DÍA ${d.n} DE 7</div>
+    <h2 class="serif">${d.title}</h2>
+    ${d.image ? `<div class="day-media"><img src="${d.image}" alt="${d.title}"></div>` : ''}
+    <div class="verse-card">
+      <p>"${d.verse}"</p>
+      <span>${d.ref}</span>
+    </div>
+    <div class="section-label">Reflexión del Día</div>
+    <div class="body-text">${d.reflection.map(p=>'<p>'+p+'</p>').join('')}</div>
+    <div class="section-label">Oración e Intercesión Mariana</div>
+    <div class="body-text"><p>${d.oracion}</p></div>
+    <div class="section-label">Acción del Día</div>
+    <div class="body-text"><p>${d.accion}</p></div>
+    <div class="journal">
+      <label class="serif">¿Cómo me habló Dios hoy?</label>
+      <textarea id="journalInput" placeholder="Escribe aquí tu reflexión, tu carga o tu intención de oración...">${saved}</textarea>
+      <div class="save-row">
+        <button class="btn" id="saveJournalBtn">Guardar</button>
+        <span class="save-msg" id="saveMsg">Guardado.</span>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" id="prevBtn" ${n===1?'disabled':''}>&larr; Día anterior</button>
+      <button class="nav-btn" id="nextBtn" ${n===7?'disabled':''}>Día siguiente &rarr;</button>
+    </div>
+  `;
+  document.getElementById('saveJournalBtn').onclick = async ()=>{
+    const val = document.getElementById('journalInput').value;
+    const ok = await saveJournal(n, val);
+    const msg = document.getElementById('saveMsg');
+    if(ok){ msg.classList.add('show'); setTimeout(()=>msg.classList.remove('show'), 2200); }
+  };
+  if(n>1) document.getElementById('prevBtn').onclick = ()=> goToDay(n-1);
+  if(n<7) document.getElementById('nextBtn').onclick = ()=> goToDay(n+1);
+}
+
+document.getElementById('gateForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const email = document.getElementById('emailInput').value.trim();
+  if(!email) return;
+  userEmail = email;
+
+  const result = await saveLeadToSupabase(email, 'tomo-1');
+
+  if(!result.ok){
+    const gate = document.getElementById('gate');
+    gate.innerHTML = `
+      <h3 class="serif" style="color:#7A2E35;">No se pudo guardar tu correo</h3>
+      <p style="text-align:left;background:#fff;border:1px solid #DED2B4;padding:14px;border-radius:14px;font-family:monospace;font-size:12.5px;color:#2B2116;white-space:pre-wrap;word-break:break-word;">Código: ${result.status}
+${result.detail}</p>
+      <p>Copia este texto completo y mándaselo a Gabi.</p>
+    `;
+    return;
+  }
+
+  visitedDays = await loadVisited();
+
+  const gate = document.getElementById('gate');
+  gate.classList.add('done');
+  gate.innerHTML = '<p>¡Bienvenido! Tu recorrido está listo.</p>';
+
+  document.getElementById('app').classList.add('show');
+  renderPath();
+  await renderDay(currentDay);
+});
+
+document.getElementById('reserveBtn').addEventListener('click', async ()=>{
+  if(!userEmail){ return; }
+  const store = safeStorage();
+  if(store){
+    try{ await store.set('reserva-cap2:' + userEmail, JSON.stringify({email:userEmail, ts:new Date().toISOString()}), true); }catch(e){}
+  }
+  document.getElementById('reserveMsg').classList.add('show');
+  document.getElementById('reserveBtn').textContent = 'Reservado ✓';
+});
+</script>
+
+</body>
+</html>

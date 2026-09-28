@@ -178,13 +178,14 @@
   .next-step h4{font-size:22px;margin:0 0 8px;font-weight:600;}
   .next-step p{margin:0 0 18px;}
 
-  .pay-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px;}
+  .pay-methods{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px;margin-bottom:18px;}
   .pay-method{
     background:rgba(255,255,255,0.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
     border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px;font-size:13.5px;
   }
   .pay-method b{display:block;font-size:14px;margin-bottom:2px;color:var(--ink);}
-  .pay-method span{color:var(--ink-soft);}
+  .pay-method{min-width:0;overflow:hidden;}
+  .pay-method span{color:var(--ink-soft);display:block;overflow-wrap:anywhere;word-break:break-word;}
 
   .socials{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;}
   .socials a{
@@ -275,9 +276,10 @@
         <h4 class="serif">Capítulo 2: Sostener la quietud en medio del ruido</h4>
         <p>Te invito a seguir caminando juntos y a aprender a blindar el corazón frente al afán exterior. Reserva tu acceso y te avisamos apenas esté disponible.</p>
         <div class="pay-methods">
-          <div class="pay-method"><b>Zelle</b><span>Próximamente — datos al confirmar</span></div>
+          <div class="pay-method"><b>Zelle</b><span>v.lameda11@gmail.com<br>Victor Lameda</span></div>
           <a class="pay-method" href="https://www.paypal.com/paypalme/victorlamedaperez" target="_blank" rel="noopener" style="text-decoration:none;display:block;"><b>PayPal</b><span>paypal.me/victorlamedaperez</span></a>
           <div class="pay-method"><b>Pago Móvil</b><span>Próximamente — datos al confirmar</span></div>
+          <div class="pay-method"><b>Binance</b><span>Próximamente — datos al confirmar</span></div>
         </div>
         <button class="btn" id="reserveBtn">Quiero reservar mi acceso</button>
         <div class="save-msg" id="reserveMsg" style="margin-top:10px;">¡Listo! Te avisaremos por correo.</div>

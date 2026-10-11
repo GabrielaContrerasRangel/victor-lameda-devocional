@@ -481,6 +481,25 @@ async function saveLeadToSupabase(email, tomo){
   }
 }
 
+// Aviso por correo a Víctor cada vez que alguien se registra (FormSubmit, gratis).
+// Si falla, no afecta al registro: el correo ya quedó guardado en Supabase.
+const NOTIFY_EMAIL = 'v.lameda11@gmail.com';
+function notifyVictor(email, tomo){
+  try{
+    fetch('https://formsubmit.co/ajax/' + NOTIFY_EMAIL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Nueva persona en La Palabra de Hoy',
+        _captcha: 'false',
+        email: email,
+        devocional: tomo,
+        mensaje: 'Se registró ' + email + ' para el devocional (' + tomo + ').'
+      })
+    }).catch(function(){});
+  }catch(e){}
+}
+
 let currentDay = 1;
 let userEmail = null;
 
@@ -592,6 +611,7 @@ document.getElementById('gateForm').addEventListener('submit', async (e)=>{
   userEmail = email;
 
   const result = await saveLeadToSupabase(email, 'tomo-1');
+  if(result.ok){ notifyVictor(email, 'tomo-1'); }
 
   if(!result.ok){
     const gate = document.getElementById('gate');
